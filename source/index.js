@@ -14,6 +14,16 @@ const func = () => {
 func();
 window.addEventListener("resize", e => func());
 
+function getrs(url, success) {
+    $.ajax({
+      url: url,
+      dataType: 'text',
+      success: (data) => {
+        success(data);
+      }
+    });
+}
+
 getrs("./source/words.csv", data => {
     console.log(data);
 });
@@ -26,18 +36,6 @@ $("textarea").each(function () {
         $("textarea").css("height", 0);
         $("textarea").css("height", (this.scrollHeight) + "px");
 });
-
-function getrs (url, success) {
-    $.ajax({
-      url: url,
-      dataType: 'text',
-      success: (data) => {
-        success(data);
-      }
-    });
-}
-
-
 
 
 // cookie
