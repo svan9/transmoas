@@ -1,0 +1,156 @@
+
+#add-section {
+    padding: 0px;
+    #list {
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .el-list.block {
+        padding: .5vw;
+        margin: .5vw;
+        width: 100%;
+        left: -1%;
+        height: 32px;
+        position: relative;
+    }
+    .el-list.block.added {
+        float: right;
+        padding: .5vw;
+        margin: .5vw;
+        max-width: 30%;
+        left: -1%;
+        height: 32px;
+        position: relative;
+        input {
+            width: 30%; 
+            margin-right: 10px;
+            height: 80%;
+            background-color: transparent;
+            border: 1px rigle white;
+            outline: none;
+            color: white;
+            border-radius:10px;
+        }
+    }
+    .button#add {
+        border: 2px solid white;
+        border-radius: 10px;
+        float: right;
+        display: block;
+    }
+}
+#headline {
+    * {
+        position: relative;
+        margin: 0px;
+        padding: 0px;
+    }
+    label {
+        color: white;
+    }
+    #rightArrow {
+        position: absolute;
+        height: 100%;
+        svg {
+            image {
+                width: 100%;
+                height: 100%;
+            }
+            height: 100%;
+        }
+        display: inline;
+        right: 0px;
+        position: relative;
+        * { text-align: center; vertical-align: middle; }
+
+    }
+
+    #leftArrow {
+        position: relative;
+        left: 0px;
+        height: 100%;
+        svg {
+            image {
+                width: 100%;
+                height: 100%;
+            }
+            height: 100%;
+        }
+        display: inline;
+        * { text-align: center; vertical-align: middle; }
+    }
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    height: 2.5vh;
+}
+.goBackBox {
+    animation: goOutFknBox 4s;
+}
+
+
+@keyframes goOutFknBox {
+    0% {
+        right: -100vw;
+    }
+    100% {
+        position: absolute;
+        left: -100vw;
+    }
+    
+}
+
+#check-section {
+    padding: .5vw;
+    textarea {
+        display: inline-block;
+        position: relative;
+        resize: none;
+        outline: none;
+        min-height: 35vh;
+        max-height: 60vh;
+        font-size: 20px;
+        font-family: "TextFont";
+        background-color: transparent;
+        border-radius: 10px;
+        width: 46%;
+        color: white;
+        padding: calc(2% / 2);
+        margin: .5%;
+    } 
+}
+
+@media screen and (min-width: 0px) and (max-width: 743px) {
+    #headline {
+        height: 5vh;
+        display: flex;
+    }
+    #check-section {
+        padding: .5vw;
+        background-color: transparent;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        textarea {
+            min-height: 20vh;
+            max-height: 30vh;
+            padding: 4%;
+            width: auto;
+            background-color: #252427;
+        }
+    }
+    #add-section {
+        #list {
+            height: auto;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .el-list.block.added {
+            min-width: 30%;
+            max-width: 100%;
+        }
+    }
+}
