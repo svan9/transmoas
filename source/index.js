@@ -14,19 +14,22 @@ const func = () => {
 func();
 window.addEventListener("resize", e => func());
 
+/**
+ * 
+ * @param {string} url 
+ * @param {function (CSV)} success 
+ */
 function getrs(url, success) {
     $.ajax({
       url: url,
       dataType: 'text',
       success: (data) => {
-        success(data);
+        success(data.parseCSV());
       }
     });
 }
 
-getrs("./source/words.csv", data => {
-    console.log(data);
-});
+
 
 
 // txt
@@ -37,6 +40,22 @@ $("textarea").each(function () {
         $("textarea").css("height", (this.scrollHeight) + "px");
 });
 
+$("textarea[name=in]").on("input", event => {    
+    getrs("./source/words.csv", data => {
+        const words = CSV.modernSplit($("textarea[name=in]").val());
+        var fullString = "";
+        words.forEach(e => {
+            let str = data.getString({title: "moas", value: e});
+            if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
+                fullString += e;
+            else if (str[0] == undefined)
+                fullString +=  " " + CSV.transToRus(e);
+            else
+                fullString +=  " " + str[1];
+        });
+        $("textarea[name=out]").val(fullString);
+    });
+});
 
 // cookie
 const getCookie = name => {
