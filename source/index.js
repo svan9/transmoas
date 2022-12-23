@@ -8,7 +8,6 @@ const fullcenterwidth = () => {
            }
     });
 }
-
 const func = () => {
     fullcenterwidth();
 };
@@ -19,6 +18,8 @@ getrs("./source/words.csv", data => {
     console.log(data);
 });
 
+
+// txt
 $("textarea").each(function () {
         this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
     }).on("input", function () {
@@ -26,7 +27,7 @@ $("textarea").each(function () {
         $("textarea").css("height", (this.scrollHeight) + "px");
 });
 
-let getrs = (url, success) => {
+function getrs (url, success) {
     $.ajax({
       url: url,
       dataType: 'text',
@@ -40,19 +41,19 @@ let getrs = (url, success) => {
 
 
 // cookie
-let getCookie = name => {
+const getCookie = name => {
     let matches = document.cookie.match(new RegExp(
       "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
-let stringToHTML = function (str) {
+const stringToHTML = function (str) {
 	var dom = document.createElement('div');
 	dom.innerHTML = str;
 	return dom;
 };
 
-let setCookie = (name, value, options = {}) => {
+const setCookie = (name, value, options = {}) => {
 
     options = {
       path: '/',
@@ -77,7 +78,7 @@ let setCookie = (name, value, options = {}) => {
     document.cookie = updatedCookie;
 }
 
-let deleteCookie = name => {
+const deleteCookie = name => {
     setCookie(name, "", {
         'max-age': -1
     })
