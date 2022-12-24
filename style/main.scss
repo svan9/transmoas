@@ -70,6 +70,9 @@ svg {
 }
 
 #check-section {
+    width: 80vw; 
+    height: auto;
+    top: 10vh;
     display: flex;
     justify-content: space-around;
     textarea[name=in] {
@@ -117,9 +120,27 @@ svg {
     }
 }
 @media screen and (min-width: 0px) and (max-width: 570px) {
+    #check-section {
+        width: 95%;
+        textarea[name=in] {
+            border-radius: 0px 0px 0px 0px;
+        };
+        textarea[name=out] {
+            background-color: #2e2e30;
+            border-radius: 0px 0px 10px 10px;
+        };
+        textarea {
+            min-height: 10vh;
+            height: 10vh;
+            max-height: 30vh;
+        }
+    }
     #switcher {
-        top: 5vh;
-        label {font-size: 1rem;}
-        width: 80vw;
+        top: 4vh;
+        label { font-size: 1rem; font-style: normal; font-weight: 100; }
+        padding: 1.5vh 0vh 1.5vh 0vh ;
+        border-radius: 10px 10px 0px 0px;
+        left: 3%;
+        width: 94%;
     }
 }

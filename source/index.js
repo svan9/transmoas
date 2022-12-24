@@ -9,7 +9,7 @@ const fullcenterwidth = () => {
     });
 }
 const func = () => {
-    fullcenterwidth();
+    if ($(window).width() > 570) fullcenterwidth();
 };
 func();
 window.addEventListener("resize", e => func());
@@ -28,17 +28,39 @@ function getrs(url, success) {
       }
     });
 }
-// txt
+// // txt
 $("textarea").each(function () {
-        // this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
-    }).on("input", function () {
-        // let height = $("textarea").css("height");
-        // $("textarea").css("height", `calc(${this.scrollHeight}px)`);
+    if ($(window).width() <= 570)
+    this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+}).on("input", function () {
+    if ($(window).width() <= 570) {
+        $("textarea").css("height", 0);
+        $("textarea").css("height", `${this.scrollHeight}px`);
+    }
 });
-$("textarea").css("height", 0);
-$("textarea").css("height", (this.scrollHeight) + "px");
 
-$("textarea[name=in]").on("input", event => {   
+if ($(window).width() <= 570) {
+    if ($("textarea[name=in]").val() == '') {
+        $("textarea[name=in]").css("border-radius", "0px 0px 10px 10px");
+        $("textarea[name=out]").css("display", "none");
+    }
+    else {
+        $("textarea[name=in]").css("border-radius", "0px 0px 0px 0px");
+        $("textarea[name=out]").css("display", "block");
+    }
+} 
+
+$("textarea[name=in]").on("input", event => { 
+    if ($(window).width() <= 570) {
+        if ($("textarea[name=in]").val() == '') {
+            $("textarea[name=in]").css("border-radius", "0px 0px 10px 10px");
+            $("textarea[name=out]").css("display", "none");
+        }
+        else {
+            $("textarea[name=in]").css("border-radius", "0px 0px 0px 0px");
+            $("textarea[name=out]").css("display", "block");
+        }
+    } 
     let state = $("#switcher").attr("state");
     // to moas
     if (state == "toRus") 
