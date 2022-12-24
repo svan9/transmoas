@@ -65,22 +65,24 @@ $("textarea[name=in]").on("input", event => {
     // to moas
     if (state == "toRus") 
         getrs("./source/words.csv", data => {
+            changeFavicon("./source/svg/icon-wb.ico");
             const words = CSV.modernSplit($("textarea[name=in]").val());
             var fullString = "";
             words.forEach(e => {
                 let str = data.getString({title: "moas", value: e});
                 if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
                     fullString += e;
-                else if (str[0] == undefined)
+                    else if (str[0] == undefined)
                     fullString += CSV.transToRus(e);
-                else
+                    else
                     fullString += str[1];
-                
-            });
+                    
+                });
             $("textarea[name=out]").val(fullString);
         });
         // to rus
         else if (state == "toMoas") 
+            changeFavicon("./source/svg/icon-c.ico");
             getrs("./source/words.csv", data => {
                 const words = CSV.modernSplit($("textarea[name=in]").val());
                 var fullString = "";
@@ -119,3 +121,15 @@ $("#switcher .button").on("click", e => {
         $("textarea[name=in]").attr("placeholder", "uis coke redume");
     }
 });
+
+function changeFavicon(src) {
+    var link = document.createElement('link'),
+        oldLink = document.getElementById('dynamic-favicon');
+    link.id = 'dynamic-favicon';
+    link.rel = 'icon';
+    link.href = src;
+    if (oldLink) {
+     document.head.removeChild(oldLink);
+    }
+    document.head.appendChild(link);
+}
