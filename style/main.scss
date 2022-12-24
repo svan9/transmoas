@@ -8,6 +8,7 @@
     font-family: "TextFont";
     font-style: normal;
     font-weight: 400;
+    color: white;
 }
 body {
     background-color: #121214;
@@ -24,6 +25,29 @@ svg {
     background-color: #252427;
 }
 
+#switcher {
+    padding: .5vw;
+    max-height: 3vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    label {
+        font-style: oblique;
+        font-weight: bold;
+        font-size: 1vw;
+        text-transform: uppercase;
+    }
+    svg {
+        cursor: pointer;
+        image {
+            width: 100%;
+            height: 100%;
+        }
+        height: 100%;
+    }
+}
+
 #check-section {
     padding: .5vw;
     textarea {
@@ -33,7 +57,7 @@ svg {
         outline: none;
         min-height: 35vh;
         max-height: 60vh;
-        font-size: 20px;
+        font-size: 1.5vw;
         font-family: "TextFont";
         background-color: transparent;
         border-radius: 10px;

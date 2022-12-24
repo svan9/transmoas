@@ -28,10 +28,6 @@ function getrs(url, success) {
       }
     });
 }
-
-
-
-
 // txt
 $("textarea").each(function () {
         this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
@@ -40,63 +36,61 @@ $("textarea").each(function () {
         $("textarea").css("height", (this.scrollHeight) + "px");
 });
 
-$("textarea[name=in]").on("input", event => {    
-    getrs("./source/words.csv", data => {
-        const words = CSV.modernSplit($("textarea[name=in]").val());
-        var fullString = "";
-        words.forEach(e => {
-            let str = data.getString({title: "moas", value: e});
-            if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
-                fullString += e;
-            else if (str[0] == undefined)
-                fullString +=  " " + CSV.transToRus(e);
-            else
-                fullString +=  " " + str[1];
+$("textarea[name=in]").on("input", event => {   
+    let state = $("#switcher").attr("state");
+    // to moas
+    if (state == "toRus") 
+        getrs("./source/words.csv", data => {
+            const words = CSV.modernSplit($("textarea[name=in]").val());
+            var fullString = "";
+            words.forEach(e => {
+                let str = data.getString({title: "moas", value: e});
+                if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
+                    fullString += e;
+                else if (str[0] == undefined)
+                    fullString +=  " " + CSV.transToRus(e);
+                else
+                    fullString +=  " " + str[1];
+            });
+            $("textarea[name=out]").val(fullString);
         });
-        $("textarea[name=out]").val(fullString);
+        // to rus
+        else if (state == "toMoas") 
+            getrs("./source/words.csv", data => {
+                const words = CSV.modernSplit($("textarea[name=in]").val());
+                var fullString = "";
+                words.forEach(e => {
+                    let str = data.getString({title: "rus", value: e});
+                    if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
+                        fullString += e;
+                    else if (str[0] == undefined)
+                        fullString +=  " " + CSV.transToEng(e);
+                    else
+                        fullString +=  " " + str[0];
+                });
+                $("textarea[name=out]").val(fullString);
+            });
+        
     });
+
+    
+    $("#switcher").on("mousedown", (e) => {
+        if (e.detail > 1) {
+            e.preventDefault();
+    }
 });
-
-// cookie
-const getCookie = name => {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-const stringToHTML = function (str) {
-	var dom = document.createElement('div');
-	dom.innerHTML = str;
-	return dom;
-};
-
-const setCookie = (name, value, options = {}) => {
-
-    options = {
-      path: '/',
-      // при необходимости добавьте другие значения по умолчанию
-      ...options
-    };
-  
-    if (options.expires instanceof Date) {
-      options.expires = options.expires.toUTCString();
+$("#switcher .button").on("click", e => {
+    let state = $("#switcher").attr("state");
+    // to moas
+    if (state == "toRus") {
+        $("#switcher").css("flex-direction", "row-reverse");
+        $("#switcher").attr("state", "toMoas");
+        $("textarea[name=in]").attr("placeholder", "как дела?");
     }
-  
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-  
-    for (let optionKey in options) {
-      updatedCookie += "; " + optionKey;
-      let optionValue = options[optionKey];
-      if (optionValue !== true) {
-        updatedCookie += "=" + optionValue;
-      }
+    // to rus
+    else if (state == "toMoas") {
+        $("#switcher").css("flex-direction", "row");
+        $("#switcher").attr("state", "toRus");
+        $("textarea[name=in]").attr("placeholder", "uis coke redume");
     }
-  
-    document.cookie = updatedCookie;
-}
-
-const deleteCookie = name => {
-    setCookie(name, "", {
-        'max-age': -1
-    })
-}
+});
