@@ -108,14 +108,14 @@ $("#switcher .button").on("click", e => {
     let state = $("#switcher").attr("state");
     // to moas
     if (state == "toRus") {
-        changeFavicon("./source/svg/icon-wb.ico");
+        changeFavicon("./source/svg/icon-c.ico");
         $("#switcher").css("flex-direction", "row-reverse");
         $("#switcher").attr("state", "toMoas");
         $("textarea[name=in]").attr("placeholder", "как дела?");
     }
     // to rus
     else if (state == "toMoas") {
-        changeFavicon("./source/svg/icon-c.ico");
+        changeFavicon("./source/svg/icon-wb.ico");
         $("#switcher").css("flex-direction", "row");
         $("#switcher").attr("state", "toRus");
         $("textarea[name=in]").attr("placeholder", "uis coke redume");
