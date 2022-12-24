@@ -30,11 +30,13 @@ function getrs(url, success) {
 }
 // txt
 $("textarea").each(function () {
-        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+        // this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
     }).on("input", function () {
-        $("textarea").css("height", 0);
-        $("textarea").css("height", (this.scrollHeight) + "px");
+        // let height = $("textarea").css("height");
+        // $("textarea").css("height", `calc(${this.scrollHeight}px)`);
 });
+$("textarea").css("height", 0);
+$("textarea").css("height", (this.scrollHeight) + "px");
 
 $("textarea[name=in]").on("input", event => {   
     let state = $("#switcher").attr("state");
@@ -48,9 +50,10 @@ $("textarea[name=in]").on("input", event => {
                 if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
                     fullString += e;
                 else if (str[0] == undefined)
-                    fullString +=  " " + CSV.transToRus(e);
+                    fullString += CSV.transToRus(e);
                 else
-                    fullString +=  " " + str[1];
+                    fullString += str[1];
+                
             });
             $("textarea[name=out]").val(fullString);
         });
@@ -64,9 +67,9 @@ $("textarea[name=in]").on("input", event => {
                     if (Array.from(",.?!@#$%^&*()}{][\/\\").indexOf(e) > -1)
                         fullString += e;
                     else if (str[0] == undefined)
-                        fullString +=  " " + CSV.transToEng(e);
+                        fullString += CSV.transToEng(e);
                     else
-                        fullString +=  " " + str[0];
+                        fullString += str[0];
                 });
                 $("textarea[name=out]").val(fullString);
             });

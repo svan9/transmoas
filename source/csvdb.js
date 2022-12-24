@@ -18,6 +18,8 @@ class CSV {
             if (e[num] == form.value)
                 { out = e; return; }
         });
+        if (out.length < 1)
+            return [undefined, ''];
         return out;
     }
 
@@ -35,28 +37,67 @@ class CSV {
         return word;
     }
     static modernSplit(string) {
-        let str = string.split(" ");
-        let newStr = [];
-        str.forEach(e => {
-            if (e != '')
-            {
-                let splited = e.split(/[\.\,\?\!\@\#\$\%\^\&\*\(\)\}\{\]\[\/\\]/);
-                let symbol = e;
-                newStr.push(splited[0]);
-                if (splited.length >= 2) {
-                    for (let i in splited)
-                        symbol = symbol.replace(new RegExp(splited[i], "g"), '');
-                    newStr.push(symbol);
-                }
+        const arr_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        const arr_EN = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        const arr_ru = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ы', 'ъ', 'э', 'ю', 'я'];
+        const arr_RU = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ь', 'Ы', 'Ъ', 'Э', 'Ю', 'Я'];
+        const special = ['!', '@', '#', '$', '%', '&', '?', '-', '+', '=', '~', '\\', '.', ',', '/', '*', '(', ')', '[', ']', '{', '}', ';', '\'', '"', '<', '>', '|', ';', '`'];
+        const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+        let out_string = [];
+        let typelast = "null";
+        Array.from(string).forEach(e => {
+            if (arr_en.indexOf(e) > -1 || arr_EN.indexOf(e) > -1 || arr_ru.indexOf(e) > -1 || arr_RU.indexOf(e) > -1) {
+                if (typelast == "char")
+                    out_string[out_string.length-1] += e;
+                else 
+                    out_string.push(e);
+                typelast = "char";
+            }
+            else if (special.indexOf(e) > -1) {
+                if (typelast == "special")
+                    out_string[out_string.length-1] += e;
+                else 
+                    out_string.push(e);
+                typelast = "special";
+                
+            }
+            else if (numbers.indexOf(e) > -1) {
+                if (typelast == "number")
+                    out_string[out_string.length-1] += e;
+                else 
+                    out_string.push(e);
+                typelast = "number";
+                
+            }
+            else if (e == ' ') {
+                if (typelast == "space")
+                    out_string[out_string.length-1] += ' ';
+                else 
+                    out_string.push(e);
+                typelast = "space";
+            }
+            else if (e == '\n') {
+                if (typelast == "space")
+                    out_string[out_string.length-1] += ' ';
+                else 
+                    out_string.push(e);
+                typelast = "space";
             }
         });
-        return newStr;
+        return out_string;
     }
 }
 String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
+String.prototype.replaceMoreFromArray = function(searchValues, replaceValue) {
+    let str = this.toString();
+    const array = searchValues;
+    for (let i = 0; i < array.length; i++)
+        str = str.replace(array[i], replaceValue);
+    return str;
+}
 String.prototype.replaceMore = function(searchValues, replaceValue) {
     let str = this.toString();
     const array = Array.from(searchValues);
@@ -80,3 +121,5 @@ String.prototype.parseCSV = function() {
     });
     return new CSV(endStr);
 }
+
+
