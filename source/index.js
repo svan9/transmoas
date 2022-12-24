@@ -65,7 +65,6 @@ $("textarea[name=in]").on("input", event => {
     // to moas
     if (state == "toRus") 
         getrs("./source/words.csv", data => {
-            changeFavicon("./source/svg/icon-wb.ico");
             const words = CSV.modernSplit($("textarea[name=in]").val());
             var fullString = "";
             words.forEach(e => {
@@ -82,7 +81,6 @@ $("textarea[name=in]").on("input", event => {
         });
         // to rus
         else if (state == "toMoas") 
-            changeFavicon("./source/svg/icon-c.ico");
             getrs("./source/words.csv", data => {
                 const words = CSV.modernSplit($("textarea[name=in]").val());
                 var fullString = "";
@@ -110,12 +108,14 @@ $("#switcher .button").on("click", e => {
     let state = $("#switcher").attr("state");
     // to moas
     if (state == "toRus") {
+        changeFavicon("./source/svg/icon-wb.ico");
         $("#switcher").css("flex-direction", "row-reverse");
         $("#switcher").attr("state", "toMoas");
         $("textarea[name=in]").attr("placeholder", "как дела?");
     }
     // to rus
     else if (state == "toMoas") {
+        changeFavicon("./source/svg/icon-c.ico");
         $("#switcher").css("flex-direction", "row");
         $("#switcher").attr("state", "toRus");
         $("textarea[name=in]").attr("placeholder", "uis coke redume");
