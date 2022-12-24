@@ -123,13 +123,11 @@ $("#switcher .button").on("click", e => {
 });
 
 function changeFavicon(src) {
-    var link = document.createElement('link'),
-        oldLink = document.getElementById('dynamic-favicon');
-    link.id = 'dynamic-favicon';
-    link.rel = 'icon';
-    link.href = src;
-    if (oldLink) {
-     document.head.removeChild(oldLink);
+    var link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.getElementsByTagName('head')[0].appendChild(link);
     }
-    document.head.appendChild(link);
+    link.href = src;
 }
