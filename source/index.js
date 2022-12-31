@@ -15,7 +15,6 @@ func();
 window.addEventListener("resize", e => func());
 
 /**
- * 
  * @param {string} url 
  * @param {function (CSV)} success 
  */
@@ -28,7 +27,7 @@ function getrs(url, success) {
       }
     });
 }
-// // txt
+
 $("textarea").each(function () {
     if ($(window).width() <= 570)
     this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
@@ -96,9 +95,7 @@ $("textarea[name=in]").on("input", event => {
                 $("textarea[name=out]").val(fullString);
             });
         
-    });
-
-    
+});
     $("#switcher").on("mousedown", (e) => {
         if (e.detail > 1) {
             e.preventDefault();
@@ -131,3 +128,5 @@ function changeFavicon(src) {
     }
     link.href = src;
 }
+
+
