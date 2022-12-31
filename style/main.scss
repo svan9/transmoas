@@ -11,6 +11,9 @@
     color: white;
 }
 body {
+    background-image: url(../source/svg/garland.svg);
+    background-size: 3vw;
+    background-repeat: repeat;
     background-color: #121214;
 }
 svg {
@@ -23,6 +26,9 @@ svg {
     float: inline-end;
     border-radius: 10px;
     background-color: #252427;
+    // background-image: url(../source/svg/garland.svg);
+    // background-size: 3vw;
+    // background-repeat: repeat;
 }
 
 #switcher {
