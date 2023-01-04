@@ -12,6 +12,34 @@ const func = () => {
     if ($(window).width() > 570) fullcenterwidth();
 };
 func();
+if (getCookie("page") == undefined)
+setCookie("page", "main");
+
+if (getCookie("page") == "game") {
+    document.body.innerHTML = `
+    <svg id="toGame" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg">
+        <image xlink:href="./source/svg/icecream.svg" width="100%" height="100%"/>
+    </svg>`;
+    
+    document.head.innerHTML = `
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./source/svg/icecream.ico">
+    <title>game</title>
+    <style>
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+    </style>
+    `;
+    startGame();
+    // try {  } catch (e) { }
+    updateGame();
+    setInterval(updateGame, 1000); // 1 tick
+    func();
+}
 window.addEventListener("resize", e => func());
 
 /**
@@ -96,7 +124,7 @@ $("textarea[name=in]").on("input", event => {
             });
         
 });
-    $("#switcher").on("mousedown", (e) => {
+$("#switcher").on("mousedown", (e) => {
         if (e.detail > 1) {
             e.preventDefault();
     }
@@ -130,3 +158,11 @@ function changeFavicon(src) {
 }
 
 
+$("#toGame").on("click", () => {
+    let cookie = getCookie("page");
+    if (cookie == "main")
+        setCookie("page", "game");
+    else if (cookie == "game")
+        setCookie("page", "main");
+    window.location.reload();
+});
